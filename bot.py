@@ -1815,7 +1815,7 @@ class Server1GachaPanelView(discord.ui.View):
         )
 
 # 第一服务器：发布抽卡面板的指令（增加管理组限制 + 绑定服务器 + 限制频道）
-@bot.tree.command(name="发布今日缘分", description="在第一服务器发布今日缘分抽卡面板", guilds=[discord.Object(id=1543680882081013830)])
+@bot.tree.command(name="发布今日缘分", description="在第一服务器发布今日缘分抽卡面板", guild_ids=[1543680882081013830])
 async def send_server1_gacha_panel(interaction: discord.Interaction):
     if interaction.guild_id != SERVER1_ID:
         await interaction.response.send_message("❌ 本指令仅限第一服务器使用。", ephemeral=True)
