@@ -4974,5 +4974,5 @@ async def on_message(message):
     await bot.process_commands(message)
 
 if __name__ == "__main__":
-    init_db()          # ← 建表、补列、回填编号，必须的
-    bot.run("DISCORD_TOKEN")
+    init_db()
+    bot.run(os.getenv("DISCORD_TOKEN"))  # 从环境变量读取
