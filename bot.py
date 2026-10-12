@@ -4975,4 +4975,4 @@ async def on_message(message):
 
 if __name__ == "__main__":
     init_db()          # ← 建表、补列、回填编号，必须的
-    bot.run("MTU1NTg1OTk5OTY1MjA1NzE0OQ.G6pV2G.wtxhxoax2HAlHkRE558IkMGDqp4dJLxTOQz9YU")
+    bot.run("DISCORD_TOKEN")
