@@ -1475,7 +1475,8 @@ async def on_ready():
     # 3) 清理各服务器残留命令 + 同步（用 bot (6) 的做法，命令秒生效）
     for guild in bot.guilds:
         try:
-            bot.tree.clear_commands(guild=guild)
+            # 不要用 clear_commands，否则会误删 guilds 限定指令
+            # 只需要把全局指令复制到本地，并同步即可
             bot.tree.copy_global_to(guild=guild)
             synced = await bot.tree.sync(guild=guild)
             print(f"✅ {guild.name}: 注册 {len(synced)} 个命令")
@@ -1483,8 +1484,8 @@ async def on_ready():
             print(f"❌ {guild.name}: {e}")
 
     try:
-        bot.tree.clear_commands(guild=None)
-        await bot.tree.sync()
+        bot.tree.clear_commands(guild=None) # 清空全局指令缓存，防止重复
+        await bot.tree.sync()               # 同步全局指令（不带 guilds 限制的）
         print("🧹 已清除全局命令缓存")
     except Exception as e:
         print(f"⚠️ 清除全局命令失败: {e}")
@@ -4974,5 +4975,5 @@ async def on_message(message):
     await bot.process_commands(message)
 
 if __name__ == "__main__":
-    init_db()
-    bot.run(os.getenv("DISCORD_TOKEN"))  # 从环境变量读取
+    init_db()          # ← 建表、补列、回填编号，必须的
+bot.run(os.getenv("DISCORD_TOKEN"))
